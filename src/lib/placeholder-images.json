@@ -1,3 +1,46 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-bg",
+      "description": "Abstract financial engineering and data science visualization",
+      "imageUrl": "https://picsum.photos/seed/eseria-hero/1920/1080",
+      "imageHint": "financial data visualization"
+    },
+    {
+      "id": "program-fin-eng",
+      "description": "Financial Engineering concept image",
+      "imageUrl": "https://picsum.photos/seed/eseria-fin/600/400",
+      "imageHint": "finance algorithms"
+    },
+    {
+      "id": "program-data-sci",
+      "description": "Data Science concept image",
+      "imageUrl": "https://picsum.photos/seed/eseria-data/600/400",
+      "imageHint": "data neural networks"
+    },
+    {
+      "id": "program-ai-orch",
+      "description": "AI Orchestration concept image",
+      "imageUrl": "https://picsum.photos/seed/eseria-ai/600/400",
+      "imageHint": "artificial intelligence orchestration"
+    },
+    {
+      "id": "faculty-1",
+      "description": "Distinguished Professor portrait",
+      "imageUrl": "https://picsum.photos/seed/faculty1/400/500",
+      "imageHint": "professional professor portrait"
+    },
+    {
+      "id": "faculty-2",
+      "description": "Research Lead portrait",
+      "imageUrl": "https://picsum.photos/seed/faculty2/400/500",
+      "imageHint": "academic researcher portrait"
+    },
+    {
+      "id": "faculty-3",
+      "description": "Financial Systems Architect portrait",
+      "imageUrl": "https://picsum.photos/seed/faculty3/400/500",
+      "imageHint": "executive technologist portrait"
+    }
+  ]
 }
