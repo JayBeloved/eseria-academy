@@ -11,10 +11,11 @@ export function Navigation() {
         <Link href="/" className="font-headline text-2xl font-bold tracking-tighter flex items-center gap-2">
           ESERIA <span className="text-primary">ACADEMY</span>
         </Link>
-        <div className="hidden md:flex items-center gap-12 text-sm font-medium uppercase tracking-widest text-white/60">
-          <Link href="#programs" className="hover:text-primary transition-colors">Programs</Link>
-          <Link href="#navigator" className="hover:text-primary transition-colors">AI Navigator</Link>
-          <Link href="#inquiry" className="hover:text-primary transition-colors">Inquiry</Link>
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium uppercase tracking-widest text-white/60">
+          {/* <Link href="/dashboard" className="hover:text-primary transition-colors">Dashboard</Link> */}
+          <Link href="/#programs" className="hover:text-primary transition-colors">Programs</Link>
+          <Link href="/#navigator" className="hover:text-primary transition-colors">AI Navigator</Link>
+          <Link href="/#inquiry" className="hover:text-primary transition-colors">Inquiry</Link>
         </div>
         {/* <Button variant="outline" className="font-headline border-primary text-primary hover:bg-primary hover:text-background uppercase tracking-wider text-xs px-8">
           Admissions
