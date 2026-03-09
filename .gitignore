@@ -34,7 +34,7 @@
 *.sln
 
 # Firebase config
-src/firebase/firebaseConfig.ts
+# src/firebase/firebaseConfig.ts
 
 # IDX specific
 .idx/
