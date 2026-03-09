@@ -9,26 +9,26 @@
     {
       "id": "program-fin-eng",
       "description": "Financial Engineering concept image",
-      "imageUrl": "https://picsum.photos/seed/eseria-fin/600/400",
+      "imageUrl": "https://i.imgur.com/oVaQ2v4.jpeg",
       "imageHint": "finance algorithms"
     },
     {
       "id": "program-data-sci",
       "description": "Data Science concept image",
-      "imageUrl": "https://picsum.photos/seed/eseria-data/600/400",
+      "imageUrl": "https://i.imgur.com/Y74z44J.jpeg",
       "imageHint": "data neural networks"
     },
     {
       "id": "program-ai-orch",
       "description": "AI Orchestration concept image",
-      "imageUrl": "https://picsum.photos/seed/eseria-ai/600/400",
+      "imageUrl": "https://i.imgur.com/w4ayL3i.png",
       "imageHint": "artificial intelligence orchestration"
     },
     {
       "id": "faculty-1",
       "description": "Distinguished Professor portrait",
-      "imageUrl": "https://picsum.photos/seed/faculty1/400/500",
-      "imageHint": "professional professor portrait"
+      "imageUrl": "https://i.imgur.com/0wHgUze.png",
+      "imageHint": "Lead Instructor portrait"
     },
     {
       "id": "faculty-2",
@@ -39,7 +39,7 @@
     {
       "id": "faculty-3",
       "description": "Financial Systems Architect portrait",
-      "imageUrl": "https://picsum.photos/seed/faculty3/400/500",
+      "imageUrl": "https://i.imgur.com/0VclL7O.png",
       "imageHint": "executive technologist portrait"
     }
   ]

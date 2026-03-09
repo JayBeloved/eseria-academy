@@ -1,13 +1,4 @@
 'use server';
-/**
- * @fileOverview An AI-powered tool that acts as a sophisticated recommender,
- * guiding prospective students to relevant academic programs, resources, and career pathways
- * based on their input for Eseria Citadel.
- *
- * - aiNavigatorProgramRecommendation - A function that handles the program recommendation process.
- * - AINavigatorProgramRecommendationInput - The input type for the aiNavigatorProgramRecommendation function.
- * - AINavigatorProgramRecommendationOutput - The return type for the aiNavigatorProgramRecommendation function.
- */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
@@ -15,10 +6,10 @@ import { z } from 'genkit';
 const AINavigatorProgramRecommendationInputSchema = z.object({
   academicInterests: z
     .string()
-    .describe('The prospective student\u2019s academic interests.'),
+    .describe('The prospective student’s current industry, background, or academic interests.'),
   careerAspirations: z
     .string()
-    .describe('The prospective student\u2019s career aspirations.'),
+    .describe('The prospective student’s strategic goal, desired career pivot, or revenue target.'),
 });
 export type AINavigatorProgramRecommendationInput = z.infer<
   typeof AINavigatorProgramRecommendationInputSchema
@@ -27,14 +18,14 @@ export type AINavigatorProgramRecommendationInput = z.infer<
 const AINavigatorProgramRecommendationOutputSchema = z.object({
   recommendedPrograms: z
     .array(z.string())
-    .describe('A list of recommended academic programs from Eseria Citadel.'),
+    .describe('A list of 2-3 specific, actionable technical modules or project focuses (e.g., "SQL for Business Value", "Python Automation Capstone").'),
   careerPathways: z
     .array(z.string())
-    .describe('A list of potential career pathways aligned with the recommendations.'),
+    .describe('A list of 2-3 specific, high-value job titles or consulting positions.'),
   explanation: z
     .string()
     .describe(
-      'A brief explanation of why these programs and pathways were recommended.'
+      'A concise, hard-hitting explanation written in the voice of the Academy Dean. Explain how their current background is an "Unfair Advantage" when combined with data skills.'
     ),
 });
 export type AINavigatorProgramRecommendationOutput = z.infer<
@@ -51,13 +42,19 @@ const prompt = ai.definePrompt({
   name: 'aiNavigatorProgramRecommendationPrompt',
   input: { schema: AINavigatorProgramRecommendationInputSchema },
   output: { schema: AINavigatorProgramRecommendationOutputSchema },
-  prompt: `You are the AI Navigator Tool for Eseria Citadel, an elite institution focused on Financial Engineering, Data Science, and AI Orchestration.
-Your task is to recommend relevant academic programs and career pathways to prospective students based on their academic interests and career aspirations. Provide a concise explanation for your recommendations.
+  prompt: `You are the "Admissions Oracle" for Eseria Academy, an elite Data Analytics & AI Institute. 
+Your goal is to evaluate a candidate's background and aspirations and prescribe a bespoke 16-week pathway.
 
-Eseria Citadel's programs are interdisciplinary and blend Financial Engineering, Data Science, and AI Orchestration.
+CORE PHILOSOPHY (The 10xB Standard):
+1. We do not mass-produce "reporting vending machines." We train strategic partners.
+2. The user's past experience (even if non-technical) is their "Domain Advantage." We use tech to amplify it.
+3. We focus on tools that drive ROI: SQL, Python, PowerBI, and AI Agents.
+4. Tone: Professional, authoritative, direct, and focused on economic outcomes. Do not use corporate fluff.
 
-Academic Interests: {{{academicInterests}}}
-Career Aspirations: {{{careerAspirations}}}`,
+Task: Based on the inputs, recommend specific curriculum focus areas, project the exact high-ticket job titles they should aim for, and provide a "Strategic Context" explaining WHY this path makes them non-substitutable in the market.
+
+Candidate Background: {{{academicInterests}}}
+Candidate Goal: {{{careerAspirations}}}`,
 });
 
 const aiNavigatorProgramRecommendationFlow = ai.defineFlow(

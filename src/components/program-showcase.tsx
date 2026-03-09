@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -8,45 +7,44 @@ import { ArrowUpRight } from "lucide-react";
 
 const programs = [
   {
-    id: "fin-eng",
-    title: "Financial Engineering",
-    description: "Architecting high-frequency trading systems and quantitative risk models using advanced stochastic calculus and computational finance.",
-    image: PlaceHolderImages.find(img => img.id === 'program-fin-eng')?.imageUrl || "",
-    hint: "finance algorithms"
+    id: "pro-pivot",
+    title: "The Professional Pivot",
+    description: "For career changers. Translate your years of experience (HR, Finance, Engineering) into a Senior Data Analyst role. Learn to automate your current industry's most tedious manual tasks.",
+    image: PlaceHolderImages.find(img => img.id === 'program-fin-eng')?.imageUrl || "/api/placeholder/800/600",
+    hint: "professional working on data dashboard"
   },
   {
-    id: "data-sci",
-    title: "Data Science & Intelligence",
-    description: "Extracting institutional-grade signals from noise. Mastery of deep learning, predictive analytics, and massive-scale data orchestration.",
-    image: PlaceHolderImages.find(img => img.id === 'program-data-sci')?.imageUrl || "",
-    hint: "data neural networks"
+    id: "grad-ascent",
+    title: "The Graduate Ascent",
+    description: "For students and recent graduates. Bypass the entry-level trap. Build an 'Anti-Cliché' portfolio with real-world business logic that proves your value to global recruiters immediately.",
+    image: PlaceHolderImages.find(img => img.id === 'program-data-sci')?.imageUrl || "/api/placeholder/800/600",
+    hint: "student analyzing data"
   },
   {
-    id: "ai-orch",
-    title: "AI Orchestration",
-    description: "Beyond simple modeling. Building autonomous agentic frameworks and sovereign AI infrastructure for enterprise-level deployment.",
-    image: PlaceHolderImages.find(img => img.id === 'program-ai-orch')?.imageUrl || "",
-    hint: "artificial intelligence orchestration"
+    id: "ai-brain",
+    title: "The Capstone Build",
+    description: "Every fellow builds a 'Professional Brain'—a bespoke AI and Data Analytics project tailored to their specific industry, serving as undeniable proof of competence for remote roles.",
+    image: PlaceHolderImages.find(img => img.id === 'program-ai-orch')?.imageUrl || "/api/placeholder/800/600",
+    hint: "artificial intelligence brain network"
   }
 ];
 
 export function ProgramShowcase() {
   return (
-    <section id="programs" className="py-32 bg-background noiseless-gradient">
-      <div className="container mx-auto px-6">
+    <section id="programs" className="py-32 bg-slate-950 border-b border-slate-900">
+      <div className="container mx-auto px-6 max-w-7xl">
         <div className="max-w-3xl mb-20">
-          <h2 className="font-headline text-5xl font-bold mb-6 tracking-tight leading-tight uppercase">
-            Elite Academic <span className="text-primary">Core</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight leading-tight uppercase">
+            Tailored <span className="text-amber-500">Pathways</span>
           </h2>
-          <p className="text-xl text-white/60 leading-relaxed font-light">
-            Eseria Citadel operates at the critical intersection of finance and machine intelligence. 
-            Our programs are designed for those who demand aggressive excellence.
+          <p className="text-xl text-slate-400 leading-relaxed font-light">
+            We do not mass-produce analysts. We curate specialists. Choose the pathway that aligns with your current career friction.
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {programs.map((program) => (
-            <Card key={program.id} className="group bg-card border-white/5 overflow-hidden gold-glow-hover transition-all duration-500 rounded-none">
-              <div className="relative h-64 overflow-hidden">
+            <Card key={program.id} className="group bg-slate-900 border-slate-800 overflow-hidden hover:border-amber-500/50 transition-all duration-500 rounded-sm">
+              <div className="relative h-64 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
                 <Image
                   src={program.image}
                   alt={program.title}
@@ -54,16 +52,16 @@ export function ProgramShowcase() {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   data-ai-hint={program.hint}
                 />
-                <div className="absolute inset-0 bg-background/40 group-hover:bg-background/20 transition-colors" />
+                <div className="absolute inset-0 bg-slate-950/60 group-hover:bg-slate-950/20 transition-colors" />
               </div>
               <CardHeader className="p-8 pb-4">
-                <CardTitle className="font-headline text-2xl uppercase tracking-tighter flex items-center justify-between">
+                <CardTitle className="text-2xl font-bold uppercase tracking-tight text-white flex items-center justify-between">
                   {program.title}
-                  <ArrowUpRight className="text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  <ArrowUpRight className="text-amber-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-8 pt-0">
-                <p className="text-white/50 leading-relaxed">
+                <p className="text-slate-400 leading-relaxed font-light">
                   {program.description}
                 </p>
               </CardContent>
