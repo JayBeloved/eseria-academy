@@ -12,13 +12,13 @@ const facultyMembers = [
     image: PlaceHolderImages.find(img => img.id === 'faculty-1')?.imageUrl || "/api/placeholder/600/800"
   },
 
-  {
-    id: "f3",
-    name: "DataCamp Enterprise",
-    role: "Infrastructure Partner",
-    expertise: "World-Class Cloud-Based Interactive Learning Environments",
-    image: PlaceHolderImages.find(img => img.id === 'faculty-3')?.imageUrl || "/api/placeholder/600/800"
-  }
+  // {
+  //   id: "f3",
+  //   name: "DataCamp Enterprise",
+  //   role: "Infrastructure Partner",
+  //   expertise: "World-Class Cloud-Based Interactive Learning Environments",
+  //   image: PlaceHolderImages.find(img => img.id === 'faculty-3')?.imageUrl || "/api/placeholder/600/800"
+  // }
 ];
 
 export function FacultySpotlight() {
