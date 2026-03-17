@@ -4,6 +4,7 @@ import React from 'react';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 
+
 // Mock data for now
 const studentData = {
     name: "Jane Doe",

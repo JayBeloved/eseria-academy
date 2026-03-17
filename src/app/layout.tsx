@@ -3,8 +3,8 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Eseria Citadel | Elite Financial Engineering & AI Academy',
-  description: 'Operating at the intersection of Financial Engineering, Data Science, and AI Orchestration.',
+  title: 'Eseria Academy | Bespoke Data Analytics Fellowship',
+  description: 'We turn your existing industry knowledge into high-ticket data intelligence.',
 };
 
 export default function RootLayout({
