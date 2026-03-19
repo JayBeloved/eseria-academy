@@ -29,8 +29,8 @@ export function Footer() {
               <h4 className="text-[10px] uppercase tracking-[0.4em] text-slate-300 font-bold mb-8">Pillars</h4>
               <ul className="space-y-4 text-xs text-slate-500 uppercase font-bold tracking-widest">
                 <li><Link href="/blueprint" className="hover:text-amber-500 transition-colors">The Blueprint</Link></li>
-                <li><Link href="#programs" className="hover:text-amber-500 transition-colors">Jurisdictions</Link></li>
-                <li><Link href="#research" className="hover:text-amber-500 transition-colors">Faculty</Link></li>
+                <li><Link href="/#programs" className="hover:text-amber-500 transition-colors">Jurisdictions</Link></li>
+                <li><Link href="/#research" className="hover:text-amber-500 transition-colors">Faculty</Link></li>
               </ul>
             </div>
             <div>
