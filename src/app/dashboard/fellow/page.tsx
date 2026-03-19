@@ -8,7 +8,7 @@ import { doc, getDoc, updateDoc, addDoc, collection, getDocs } from 'firebase/fi
 import { auth, db } from '@/firebase/firebaseConfig';
 import { 
   Target, Lock, Unlock, BrainCircuit, Calendar, CheckCircle2, BookOpen, Terminal, Upload, Circle, ExternalLink, Loader2, LogOut, 
-  Video, Loom, Database
+  Video, Database
 } from 'lucide-react';
 
 export default function FellowDashboardShell() {
@@ -336,14 +336,14 @@ export default function FellowDashboardShell() {
             )}
           </div>
           <div className="w-px h-10 bg-slate-800"></div>
-          {/* Add logout button */}
-          <button 
-            onClick={handleLogout}
-            className="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-800 hover:border-rose-500/50 hover:bg-rose-500/10 text-slate-400 hover:text-rose-500 text-[10px] font-bold uppercase tracking-widest rounded-sm transition-all group"
-          >
-            <LogOut className="w-3 h-3 transition-transform group-hover:-translate-x-1" />
-            Terminate Session
-          </button>
+            {/* Add logout button */}
+            <button 
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-800 hover:border-rose-500/50 hover:bg-rose-500/10 text-slate-400 hover:text-rose-500 text-[10px] font-bold uppercase tracking-widest rounded-sm transition-all group"
+            >
+              <LogOut className="w-3 h-3 transition-transform group-hover:-translate-x-1" />
+              Terminate Session
+            </button>
 
         </div>
       </header>
