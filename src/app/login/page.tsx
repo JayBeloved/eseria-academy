@@ -15,36 +15,28 @@ export default function CitadelAccess() {
   const router = useRouter();
 
   // The Switchboard Logic: Route users based on their role
-  const routeUser = async (uid: string, userEmail: string | null, displayName: string | null) => {
+ const routeUser = async (uid: string, userEmail: string | null) => {
     try {
-      const userDocRef = doc(db, 'users', uid);
+      const sanitizedId = userEmail?.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const userDocRef = doc(db, 'users', sanitizedId as string);
       const userDoc = await getDoc(userDocRef);
 
       if (userDoc.exists()) {
         const data = userDoc.data();
         if (data.role === 'admin') {
           router.push('/dashboard/admin');
+        } else if (data.onboardingCompleted === false) {
+          // FORCE ONBOARDING IF NOT DONE
+          router.push('/onboarding');
         } else {
           router.push('/dashboard/fellow');
         }
       } else {
-        // If they don't exist in Firestore yet, provision a default locked profile
-        await setDoc(userDocRef, {
-          email: userEmail,
-          fullName: displayName || "New Fellow",
-          role: "fellow",
-          primaryGoal: "Pending Declaration",
-          selfAssessmentScore: 1,
-          billingTier: "pending",
-          unlockedPhases: [], // Locked by default
-          currentWeek: 1
-        });
-        router.push('/dashboard/fellow');
+        // Fallback for unauthorized logins
+        router.push('/login');
       }
     } catch (err) {
       console.error("Routing Error:", err);
-      setError("Failed to verify jurisdictional clearance.");
-      setIsLoading(false);
     }
   };
 
@@ -54,7 +46,8 @@ export default function CitadelAccess() {
     setError('');
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      await routeUser(userCredential.user.uid, userCredential.user.email, userCredential.user.displayName);
+      // REMOVED: userCredential.user.displayName (the 3rd argument)
+      await routeUser(userCredential.user.uid, userCredential.user.email);
     } catch (err: any) {
       setError("Invalid credentials. Access denied.");
       setIsLoading(false);
@@ -67,7 +60,8 @@ export default function CitadelAccess() {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      await routeUser(result.user.uid, result.user.email, result.user.displayName);
+      // REMOVED: result.user.displayName (the 3rd argument)
+      await routeUser(result.user.uid, result.user.email);
     } catch (err: any) {
       setError("Google authentication failed.");
       setIsLoading(false);

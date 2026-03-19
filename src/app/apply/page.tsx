@@ -191,10 +191,10 @@ export default function OnboardingPage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <button
                           type="button"
-                          onClick={() => setPersona('professional')}
-                          className={`p-4 border text-left rounded-sm transition-all ${persona === 'professional' ? 'border-amber-500 bg-amber-500/10 text-white' : 'border-slate-700 bg-slate-900/50 text-slate-400 hover:border-slate-500'}`}
+                          onClick={() => setPersona('executive')}
+                          className={`p-4 border text-left rounded-sm transition-all ${persona === 'executive' ? 'border-amber-500 bg-amber-500/10 text-white' : 'border-slate-700 bg-slate-900/50 text-slate-400 hover:border-slate-500'}`}
                         >
-                          <span className="block font-bold text-sm uppercase tracking-wide mb-1">The Domain Professional</span>
+                          <span className="block font-bold text-sm uppercase tracking-wide mb-1">Executive Path</span>
                           <span className="block text-xs opacity-70">Pivoting an existing career with tech</span>
                         </button>
                         <button
@@ -202,7 +202,7 @@ export default function OnboardingPage() {
                           onClick={() => setPersona('graduate')}
                           className={`p-4 border text-left rounded-sm transition-all ${persona === 'graduate' ? 'border-amber-500 bg-amber-500/10 text-white' : 'border-slate-700 bg-slate-900/50 text-slate-400 hover:border-slate-500'}`}
                         >
-                          <span className="block font-bold text-sm uppercase tracking-wide mb-1">The Academic Specialist</span>
+                          <span className="block font-bold text-sm uppercase tracking-wide mb-1">Graduate Grant Path</span>
                           <span className="block text-xs opacity-70">Entering the market with elite skills</span>
                         </button>
                       </div>

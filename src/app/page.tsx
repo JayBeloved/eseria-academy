@@ -17,7 +17,7 @@ export default function EseriaAcademyHome() {
       <Navigation />
       
       {/* HERO SECTION: The Fortified City */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden border-b border-slate-800">
+      <section className="relative min-h-[calc(100vh-5rem)] flex flex-col items-center justify-center text-center px-6 overflow-hidden border-b border-slate-900 pt-10">
         <div className="absolute inset-0 z-0">
           <Image
             src={heroImg}
@@ -44,7 +44,7 @@ export default function EseriaAcademyHome() {
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 animate-in fade-in duration-1000 delay-500">
             <a 
-              href="#enrollment"
+              href="/apply"
               className="inline-flex items-center justify-center h-14 px-12 bg-amber-600 text-white hover:bg-amber-500 uppercase tracking-widest text-sm font-bold rounded-sm shadow-lg shadow-amber-900/20 transition-all duration-300"
             >
               Apply for the Pivot
