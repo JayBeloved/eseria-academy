@@ -30,7 +30,7 @@ export default function CitadelAccess() {
           // FORCE ONBOARDING IF NOT DONE
           router.push('/onboarding');
         } else {
-          router.push('/dashboard/fellow');
+          router.push('/dashboard');
         }
       } else {
         // Fallback for unauthorized logins
