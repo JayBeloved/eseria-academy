@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { 
   ShieldAlert, Users, Send, BookOpen, 
   HardDrive, Inbox, Activity, MessageSquare,
-  FilePenLine, Landmark
+  FilePenLine, Landmark, X
 } from "lucide-react";
 
 const navItems = [
@@ -21,22 +21,32 @@ const navItems = [
   { name: 'Treasury', icon: Landmark, path: '/dashboard/admin/financials' }
 ];
 
-export function AdminSidebar() {
+// ADD the onClose prop here
+export function AdminSidebar({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 h-screen sticky top-0 bg-[#000000] border-r border-rose-900/50 flex flex-col z-50">
+    <aside className="w-64 h-screen bg-[#000000] border-r border-rose-900/50 flex flex-col z-50 overflow-y-auto">
       {/* Brand Header */}
-      <div className="p-6 flex items-center gap-3 border-b border-rose-900/30">
-        <ShieldAlert className="w-8 h-8 text-rose-500 shrink-0" />
-        <div className="flex flex-col">
-          <span className="font-black text-white tracking-tighter uppercase text-lg leading-none">
-            DEAN <span className="text-rose-500">CONTROL</span>
-          </span>
-          <span className="text-[8px] font-bold text-rose-500/70 uppercase tracking-widest mt-1">
-            Absolute Authority
-          </span>
+      <div className="p-6 flex items-center justify-between border-b border-rose-900/30">
+        <div className="flex items-center gap-3">
+          <ShieldAlert className="w-8 h-8 text-rose-500 shrink-0" />
+          <div className="flex flex-col">
+            <span className="font-black text-white tracking-tighter uppercase text-lg leading-none">
+              DEAN <span className="text-rose-500">CONTROL</span>
+            </span>
+            <span className="text-[8px] font-bold text-rose-500/70 uppercase tracking-widest mt-1">
+              Absolute Authority
+            </span>
+          </div>
         </div>
+        
+        {/* MOBILE CLOSE BUTTON */}
+        {onClose && (
+          <button onClick={onClose} className="md:hidden text-rose-500 hover:text-white transition-colors p-1">
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* Navigation Links */}
@@ -44,7 +54,7 @@ export function AdminSidebar() {
         {navItems.map((item) => {
           const isActive = pathname === item.path;
           return (
-            <Link key={item.name} href={item.path}>
+            <Link key={item.name} href={item.path} onClick={onClose}>
               <div className={`
                 flex items-center gap-4 p-3 rounded-md transition-all group
                 ${isActive ? "bg-rose-950/50 border border-rose-900/50 text-rose-500" : "text-zinc-500 hover:text-white hover:bg-zinc-900/50"}
@@ -58,7 +68,7 @@ export function AdminSidebar() {
       </nav>
 
       {/* Footer / Status */}
-      <div className="p-6 border-t border-rose-900/30 bg-rose-950/10">
+      <div className="p-6 border-t border-rose-900/30 bg-rose-950/10 mt-auto">
         <div className="flex items-center gap-2 text-rose-500">
           <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
           <span className="text-[9px] font-black uppercase tracking-widest">God-Mode Active</span>

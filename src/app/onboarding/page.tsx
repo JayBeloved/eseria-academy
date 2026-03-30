@@ -39,7 +39,7 @@ export default function InitiationProtocol() {
       if (snap.exists()) {
         const data = snap.data();
         if (data.onboardingCompleted) {
-          router.push('/dashboard/fellow');
+          router.push('/dashboard');
         } else {
           setUserData(data);
         }
@@ -80,7 +80,7 @@ export default function InitiationProtocol() {
         lastSecurityRotation: new Date().toISOString()
       });
 
-      router.push('/dashboard/fellow');
+      router.push('/dashboard');
     } catch (err: any) {
       console.error("Initiation Failure:", err);
       
