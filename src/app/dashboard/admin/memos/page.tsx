@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, orderBy, onSnapshot, addDoc, updateDoc, deleteDoc, doc, where, getDocs } from 'firebase/firestore';
 import { db } from '@/firebase/firebaseConfig';
-import { FileText, Plus, Trash2, ShieldAlert, Target, Save, Eye, Edit3, User, Loader2, FilePenLine } from 'lucide-react';
+import { FileText, Plus, Trash2, Save, Eye, Edit3, Loader2, Search } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -14,6 +14,7 @@ export default function MemosEngine() {
   const [fellows, setFellows] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Editor State
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -21,7 +22,8 @@ export default function MemosEngine() {
   const [content, setContent] = useState('');
   const [audience, setAudience] = useState('global');
   const [category, setCategory] = useState('brief');
-  const [viewMode, setViewMode] = useState<'write' | 'preview'>('write'); // New View Mode State
+  const [week, setWeek] = useState('Week 1'); // NEW: Week Tagging
+  const [viewMode, setViewMode] = useState<'write' | 'preview'>('write');
 
   useEffect(() => {
     const fetchCohort = async () => {
@@ -45,10 +47,10 @@ export default function MemosEngine() {
     setIsSaving(true);
     try {
       if (activeId) {
-        await updateDoc(doc(db, 'memos', activeId), { title, content, audience, category, updatedAt: Date.now() });
+        await updateDoc(doc(db, 'memos', activeId), { title, content, audience, category, week, updatedAt: Date.now() });
       } else {
         const docRef = await addDoc(collection(db, 'memos'), {
-          title, content, audience, category, createdAt: Date.now(), updatedAt: Date.now()
+          title, content, audience, category, week, createdAt: Date.now(), updatedAt: Date.now()
         });
         setActiveId(docRef.id);
       }
@@ -60,11 +62,11 @@ export default function MemosEngine() {
   };
 
   const handleCreateNew = () => {
-    setActiveId(null); setTitle(''); setContent(''); setAudience('global'); setCategory('brief'); setViewMode('write');
+    setActiveId(null); setTitle(''); setContent(''); setAudience('global'); setCategory('brief'); setWeek('Week 1'); setViewMode('write');
   };
 
   const loadMemo = (m: any) => {
-    setActiveId(m.id); setTitle(m.title); setContent(m.content); setAudience(m.audience); setCategory(m.category); setViewMode('write');
+    setActiveId(m.id); setTitle(m.title); setContent(m.content); setAudience(m.audience); setCategory(m.category); setWeek(m.week || 'Week 1'); setViewMode('write');
   };
 
   const handleDelete = async (id: string) => {
@@ -74,7 +76,8 @@ export default function MemosEngine() {
     }
   };
 
-  // Custom Markdown Renderers for the Preview
+  const filteredMemos = memos.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase()));
+
   const MarkdownComponents: any = {
     h1: ({node, ...props}: any) => <h1 className="text-3xl font-black text-white mt-8 mb-4 border-b border-zinc-800 pb-2" {...props} />,
     h2: ({node, ...props}: any) => <h2 className="text-2xl font-bold text-rose-500 mt-6 mb-3" {...props} />,
@@ -96,9 +99,7 @@ export default function MemosEngine() {
           </SyntaxHighlighter>
         </div>
       ) : (
-        <code className="bg-rose-500/10 text-rose-400 px-1.5 py-0.5 rounded font-mono text-sm" {...props}>
-          {children}
-        </code>
+        <code className="bg-rose-500/10 text-rose-400 px-1.5 py-0.5 rounded font-mono text-sm" {...props}>{children}</code>
       );
     }
   };
@@ -114,8 +115,6 @@ export default function MemosEngine() {
         </h1>
       </header>
 
-      
-
       <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-6 min-h-0">
         
         {/* DIRECTORY SIDEBAR */}
@@ -124,8 +123,15 @@ export default function MemosEngine() {
             <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500 flex items-center gap-2"><FileText className="w-4 h-4" /> Directory</span>
             <button onClick={handleCreateNew} className="p-1.5 bg-rose-500/10 text-rose-500 hover:bg-rose-500 hover:text-white rounded"><Plus className="w-4 h-4" /></button>
           </div>
+          {/* SEARCH BAR */}
+          <div className="p-2 border-b border-zinc-900">
+            <div className="relative">
+              <Search className="w-3 h-3 text-zinc-500 absolute left-2 top-1/2 -translate-y-1/2" />
+              <input type="text" placeholder="Search..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-full bg-zinc-900/50 text-white text-xs pl-7 pr-2 py-1.5 rounded outline-none border border-zinc-800 focus:border-rose-500 transition-colors" />
+            </div>
+          </div>
           <div className="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
-            {memos.map(m => (
+            {filteredMemos.map(m => (
               <div key={m.id} className={`group flex items-center justify-between p-3 rounded-lg cursor-pointer ${activeId === m.id ? 'bg-zinc-900/80 border border-zinc-800' : 'hover:bg-zinc-950 border border-transparent'}`} onClick={() => loadMemo(m)}>
                 <div className="min-w-0 pr-2">
                   <p className={`text-xs font-bold truncate ${activeId === m.id ? 'text-rose-500' : 'text-zinc-300'}`}>{m.title}</p>
@@ -138,9 +144,8 @@ export default function MemosEngine() {
 
         {/* EDITOR PANE */}
         <div className="md:col-span-3 bg-black border border-zinc-900 rounded-xl flex flex-col overflow-hidden shadow-2xl relative">
-          
           <div className="p-4 border-b border-zinc-900 bg-zinc-950/50 flex flex-wrap gap-4 items-center justify-between shrink-0">
-            <div className="flex items-center gap-4 flex-1">
+            <div className="flex items-center gap-2 flex-1 flex-wrap">
               <select value={audience} onChange={e => setAudience(e.target.value)} className="bg-black border border-zinc-800 text-[10px] font-bold uppercase tracking-widest text-zinc-400 p-2 rounded outline-none focus:border-rose-500">
                 <option value="global">Global Broadcast</option>
                 {fellows.map(f => <option key={f.id} value={f.email}>Target: {f.fullName}</option>)}
@@ -148,7 +153,14 @@ export default function MemosEngine() {
               <select value={category} onChange={e => setCategory(e.target.value)} className="bg-black border border-zinc-800 text-[10px] font-bold uppercase tracking-widest text-zinc-400 p-2 rounded outline-none focus:border-rose-500">
                 <option value="brief">Strategic Brief</option>
                 <option value="walkthrough">Walkthrough</option>
+                <option value="roadmap">Roadmap</option>
                 <option value="announcement">Announcement</option>
+              </select>
+              <select value={week} onChange={e => setWeek(e.target.value)} className="bg-black border border-zinc-800 text-[10px] font-bold uppercase tracking-widest text-zinc-400 p-2 rounded outline-none focus:border-rose-500">
+                <option value="Global">Global / No Week</option>
+                {[...Array(16)].map((_, i) => (
+                  <option key={i} value={`Week ${i + 1}`}>Week {i + 1}</option>
+                ))}
               </select>
             </div>
             
@@ -159,7 +171,7 @@ export default function MemosEngine() {
               </div>
               <button onClick={handleSave} disabled={isSaving} className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white text-[10px] font-black uppercase tracking-widest rounded transition-colors flex items-center gap-2 disabled:opacity-50">
                 {isSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
-                {activeId ? 'Update Memo' : 'Publish Memo'}
+                {activeId ? 'Update Memo' : 'Publish'}
               </button>
             </div>
           </div>
@@ -174,19 +186,16 @@ export default function MemosEngine() {
                 placeholder="# Enter Strategy\n\nUse Markdown for formatting:\n## Subheading\n**Bold Text**\n\n"
                 className="w-full h-full min-h-[400px] bg-transparent text-sm md:text-base text-zinc-300 outline-none resize-none placeholder:text-zinc-800 leading-relaxed font-mono"
                 />
-                ) : (
-                <div className="prose prose-invert max-w-none">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} components={MarkdownComponents}>
-                        {content || 'No content to preview.'}
-                    </ReactMarkdown>
-                </div>
-                )}
-            </div>
-
-            </div>
+            ) : (
+              <div className="prose prose-invert max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} components={MarkdownComponents}>
+                      {content || 'No content to preview.'}
+                  </ReactMarkdown>
+              </div>
+            )}
+          </div>
         </div>
+      </div>
     </div>
-
-);
+  );
 }
-
